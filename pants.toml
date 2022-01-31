@@ -54,8 +54,10 @@ args = ["-i 4", "-ci", "-sr"]
 output = "all"
 # Pants in our template needs the HOME variable set, so we'll just
 # import this into our sandbox.
-# TODO: Also consider running the inner Pants without the daemon
-extra_env_vars = [ "HOME" ]
+#
+# We also pass the GIT_* variables for the benefit of CI-based test
+# runs.
+extra_env_vars = [ "HOME", "GIT_AUTHOR_NAME", "GIT_AUTHOR_EMAIL", "GIT_COMMITTER_NAME", "GIT_COMMITTER_EMAIL" ]
 
 [pytest]
 args = [ "-vv" ]
