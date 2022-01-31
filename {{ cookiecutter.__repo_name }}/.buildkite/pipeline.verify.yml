@@ -1,0 +1,19 @@
+---
+steps:
+
+  - label: ":lint-roller::bash: Lint Shell"
+    command:
+      - make lint-shell
+  - label: ":lint-roller::jeans: Lint BUILD files"
+    command:
+      - make lint-build-files
+  - label: ":lint-roller::buildkite: Lint Plugin"
+    command:
+      - make lint-plugin
+
+  - label: ":bash: Unit Tests"
+    command:
+      - make test-shell
+  - label: ":buildkite: Test Plugin"
+    command:
+      - make test-plugin

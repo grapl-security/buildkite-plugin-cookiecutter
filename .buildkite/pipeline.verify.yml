@@ -1,0 +1,19 @@
+---
+steps:
+
+  - label: ":lint-roller::jeans: Lint BUILD files"
+    command:
+      - make lint-build-files
+  - label: ":lint-roller::python: Lint Python"
+    command:
+      - make lint-python
+  - label: ":lint-roller::bash: Lint Shell"
+    command:
+      - make lint-shell
+  - label: ":lint-roller::python: Typecheck"
+    command:
+      - make typecheck
+
+  - label: ":python: Unit Tests"
+    command:
+      - make test-template

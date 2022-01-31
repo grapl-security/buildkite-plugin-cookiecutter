@@ -1,0 +1,28 @@
+{
+    "friendly_name": "Super Cool Stuff",
+    "github_org": "grapl-security",
+
+    "description": "A Buildkite Plugin for {{ cookiecutter.friendly_name }}",
+    "author": "https://github.com/{{ cookiecutter.github_org }}",
+
+    "pants_version": "2.9.0",
+    "toolchain_pants_plugin_version": "0.17.0",
+
+    "use_environment_hook": true,
+    "use_pre_checkout_hook": true,
+    "use_checkout_hook": true,
+    "use_post_checkout_hook": true,
+    "use_pre_command_hook": true,
+    "use_command_hook": true,
+    "use_post_command_hook": true,
+    "use_pre_artifact_hook": true,
+    "use_post_artifact_hook": true,
+    "use_pre_exit_hook": true,
+
+    "__plugin_name": "{{ cookiecutter.friendly_name | slugify }}",
+    "__env_var_prefix": "BUILDKITE_PLUGIN_{{ cookiecutter.__plugin_name | upper | replace('-','_') }}",
+    "__repo_name": "{{ cookiecutter.__plugin_name }}-buildkite-plugin",
+    "_extensions": [
+        "cookiecutter.extensions.UUIDExtension"
+    ]
+}

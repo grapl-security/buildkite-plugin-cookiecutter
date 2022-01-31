@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Buildkite `post-artifact` plugin hook
+# https://buildkite.com/docs/agent/v3/hooks#job-lifecycle-hooks
+#
+# Runs after artifacts have been uploaded, if an artifact upload
+# pattern was defined for the job.
+
+set -euo pipefail
+
+# Access plugin configuration with variables like:
+#   {{ cookiecutter.__env_var_prefix }}_FOO
+#   {{ cookiecutter.__env_var_prefix }}_BAR
+# etc.

@@ -1,0 +1,8 @@
+---
+name: "{{ cookiecutter.friendly_name }}"
+description: "{{ cookiecutter.description }}"
+author: "{{ cookiecutter.author }}"
+requirements: []
+configuration:
+  properties: {}
+  additionalProperties: false
