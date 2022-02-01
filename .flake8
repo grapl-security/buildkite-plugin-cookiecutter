@@ -1,0 +1,7 @@
+[flake8]
+select =
+    # F401: unused imports
+    F401
+ignore =
+    # E501: line too long
+    E501
