@@ -9,7 +9,12 @@
 set -euo pipefail
 
 echo "Fetching latest 'pants' script"
-curl -L -o ./pants https://pantsbuild.github.io/setup/pants
+curl --proto "=https" \
+    --tlsv1.2 \
+    --location \
+    --verbose \
+    --output ./pants \
+    https://static.pantsbuild.org/setup/pants
 chmod a+x pants
 
 # Remove unused hook files and test files (because otherwise this is
