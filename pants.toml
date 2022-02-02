@@ -13,10 +13,7 @@ backend_packages = [
 build_ignore = [
     # Don't want the BUILD files in the template to get treated as
     # though they applied to this project.
-    #
-    # NOTE: This currently causes the following warning:
-    #    DeprecationWarning: invalid escape sequence \{
-    "\\{\\{ cookiecutter.__repo_name \\}\\}"
+    '\\{\\{ cookiecutter.__repo_name \\}\\}'
 ]
 pants_ignore = [
     "!.buildkite/",
