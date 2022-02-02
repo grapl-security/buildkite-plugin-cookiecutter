@@ -1,22 +1,53 @@
 ---
-steps:
+env:
+  PANTS_CONFIG_FILES: "['pants.toml', 'pants.ci.toml']"
+  BUILDKITE_PLUGIN_VAULT_ENV_SECRET_PREFIX: "secret/data/buildkite/env"
 
+steps:
   - label: ":lint-roller::jeans: Lint BUILD files"
     command:
       - make lint-build-files
+    plugins:
+      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-env#v0.1.0:
+          secrets:
+            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+
   - label: ":lint-roller::python: Lint Python"
     command:
       - make lint-python
+    plugins:
+      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-env#v0.1.0:
+          secrets:
+            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+
   - label: ":lint-roller::bash: Lint Shell"
     command:
       - make lint-shell
+    plugins:
+      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-env#v0.1.0:
+          secrets:
+            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+
   - label: ":lint-roller::python: Typecheck"
     command:
       - make typecheck
+    plugins:
+      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-env#v0.1.0:
+          secrets:
+            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
 
   - label: ":python: Unit Tests"
     command:
       - make test-template
+    plugins:
+      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-env#v0.1.0:
+          secrets:
+            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
     env:
       # Adding these so the git commands run in Pytest work
       GIT_AUTHOR_NAME: Testy McTesterson
