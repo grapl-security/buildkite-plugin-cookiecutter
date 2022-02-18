@@ -8,7 +8,7 @@ steps:
     command:
       - make lint-build-files
     plugins:
-      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-login#v0.1.2
       - grapl-security/vault-env#v0.1.0:
           secrets:
             - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
@@ -17,7 +17,7 @@ steps:
     command:
       - make lint-python
     plugins:
-      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-login#v0.1.2
       - grapl-security/vault-env#v0.1.0:
           secrets:
             - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
@@ -26,7 +26,7 @@ steps:
     command:
       - make lint-shell
     plugins:
-      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-login#v0.1.2
       - grapl-security/vault-env#v0.1.0:
           secrets:
             - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
@@ -35,7 +35,7 @@ steps:
     command:
       - make typecheck
     plugins:
-      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-login#v0.1.2
       - grapl-security/vault-env#v0.1.0:
           secrets:
             - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
@@ -44,7 +44,7 @@ steps:
     command:
       - make test-template
     plugins:
-      - grapl-security/vault-login#v0.1.0
+      - grapl-security/vault-login#v0.1.2
       - grapl-security/vault-env#v0.1.0:
           secrets:
             - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
