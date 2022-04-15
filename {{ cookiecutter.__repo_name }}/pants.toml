@@ -10,6 +10,8 @@ backend_packages = [
     "pants.backend.experimental.docker.lint.hadolint"
 ]
 
+use_deprecated_python_macros = false
+
 pants_ignore = [
     "!.buildkite/"
 ]
