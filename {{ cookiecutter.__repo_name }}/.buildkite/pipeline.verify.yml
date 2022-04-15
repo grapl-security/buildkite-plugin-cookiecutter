@@ -14,6 +14,10 @@ steps:
         command:
           - make lint-build-files
 
+      - label: ":docker: Lint Dockerfiles"
+        command:
+          - make lint-docker
+
       - label: ":buildkite: Lint Plugin"
         command:
           - make lint-plugin

@@ -1,13 +1,11 @@
 [GLOBAL]
 pants_version = "{{ cookiecutter.pants_version }}"
 backend_packages = [
+    "pants.backend.docker",
+    "pants.backend.docker.lint.hadolint",
     "pants.backend.shell",
     "pants.backend.shell.lint.shellcheck",
-    "pants.backend.shell.lint.shfmt",
-
-    # TODO: conditionally add this only if we need a container
-    "pants.backend.experimental.docker",
-    "pants.backend.experimental.docker.lint.hadolint"
+    "pants.backend.shell.lint.shfmt"
 ]
 
 use_deprecated_python_macros = false

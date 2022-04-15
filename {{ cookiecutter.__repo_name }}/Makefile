@@ -38,6 +38,7 @@ format-shell: ## Format shell scripts
 
 .PHONY: lint
 lint: lint-build-files
+lint: lint-docker
 lint: lint-plugin
 lint: lint-shell
 lint: ## Perform lint checks on all files
@@ -45,6 +46,10 @@ lint: ## Perform lint checks on all files
 .PHONY: lint-build-files
 lint-build-files: ## Lint Pants BUILD files
 	./pants update-build-files --check
+
+.PHONY: lint-docker
+lint-docker:  ## Lint Dockerfiles
+	./pants filter --target-type=docker_image :: | xargs ./pants lint
 
 .PHONY: lint-plugin
 lint-plugin: ## Lint the Buildkite plugin metadata
