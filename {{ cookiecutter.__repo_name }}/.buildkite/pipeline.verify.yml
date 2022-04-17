@@ -1,19 +1,35 @@
 ---
+env:
+  PANTS_CONFIG_FILES: "['pants.toml', 'pants.ci.toml']"
+
 steps:
 
-  - label: ":lint-roller::bash: Lint Shell"
+  - label: ":pants: All files are covered by Pants"
     command:
-      - make lint-shell
-  - label: ":lint-roller::jeans: Lint BUILD files"
-    command:
-      - make lint-build-files
-  - label: ":lint-roller::buildkite: Lint Plugin"
-    command:
-      - make lint-plugin
+      - ./pants tailor --check
+
+  - group: ":lint-roller: Lints"
+    steps:
+      - label: ":pants: Lint BUILD files"
+        command:
+          - make lint-build-files
+
+      - label: ":docker: Lint Dockerfiles"
+        command:
+          - make lint-docker
+
+      - label: ":buildkite: Lint Plugin"
+        command:
+          - make lint-plugin
+
+      - label: ":bash: Lint Shell"
+        command:
+          - make lint-shell
 
   - label: ":bash: Unit Tests"
     command:
       - make test-shell
+
   - label: ":buildkite: Test Plugin"
     command:
       - make test-plugin
