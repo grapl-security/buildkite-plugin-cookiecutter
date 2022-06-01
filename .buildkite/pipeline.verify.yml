@@ -4,58 +4,70 @@ env:
   BUILDKITE_PLUGIN_VAULT_ENV_SECRET_PREFIX: "secret/data/buildkite/env"
 
 steps:
+  - group: ":white_check_mark: Validation"
+    # Validations are basic sanity checks, mostly around ensuring
+    # various configuration files are in proper working order.
+    key: validation
+    steps:
+    - label: ":pants: All files are covered by Pants"
+      command:
+        - ./pants tailor --check
 
-  - label: ":jeans: All files are covered by Pants"
-    command:
-      - ./pants tailor --check
+  - group: ":lint-roller: Lints"
+    # Lints are various code quality checks; formatting, style guide
+    # enforcement, typechecking, etc.
+    key: lints
+    steps:
+    - label: ":lint-roller::pants: Lint BUILD files"
+      command:
+        - make lint-build-files
+      plugins:
+        - grapl-security/vault-login#v0.1.2
+        - grapl-security/vault-env#v0.1.0:
+            secrets:
+              - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
 
-  - label: ":lint-roller::jeans: Lint BUILD files"
-    command:
-      - make lint-build-files
-    plugins:
-      - grapl-security/vault-login#v0.1.2
-      - grapl-security/vault-env#v0.1.0:
-          secrets:
-            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+    - label: ":lint-roller::python: Lint Python"
+      command:
+        - make lint-python
+      plugins:
+        - grapl-security/vault-login#v0.1.2
+        - grapl-security/vault-env#v0.1.0:
+            secrets:
+              - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
 
-  - label: ":lint-roller::python: Lint Python"
-    command:
-      - make lint-python
-    plugins:
-      - grapl-security/vault-login#v0.1.2
-      - grapl-security/vault-env#v0.1.0:
-          secrets:
-            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+    - label: ":lint-roller::bash: Lint Shell"
+      command:
+        - make lint-shell
+      plugins:
+        - grapl-security/vault-login#v0.1.2
+        - grapl-security/vault-env#v0.1.0:
+            secrets:
+              - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
 
-  - label: ":lint-roller::bash: Lint Shell"
-    command:
-      - make lint-shell
-    plugins:
-      - grapl-security/vault-login#v0.1.2
-      - grapl-security/vault-env#v0.1.0:
-          secrets:
-            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+    - label: ":lint-roller::python: Typecheck"
+      command:
+        - make typecheck
+      plugins:
+        - grapl-security/vault-login#v0.1.2
+        - grapl-security/vault-env#v0.1.0:
+            secrets:
+              - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
 
-  - label: ":lint-roller::python: Typecheck"
-    command:
-      - make typecheck
-    plugins:
-      - grapl-security/vault-login#v0.1.2
-      - grapl-security/vault-env#v0.1.0:
-          secrets:
-            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
-
-  - label: ":python: Unit Tests"
-    command:
-      - make test-template
-    plugins:
-      - grapl-security/vault-login#v0.1.2
-      - grapl-security/vault-env#v0.1.0:
-          secrets:
-            - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
-    env:
-      # Adding these so the git commands run in Pytest work
-      GIT_AUTHOR_NAME: Testy McTesterson
-      GIT_AUTHOR_EMAIL: tests@example.com
-      GIT_COMMITTER_NAME: Testy McTesterson
-      GIT_COMMITTER_EMAIL: tests@example.com
+  - group: "Unit Tests"
+    key: unit-tests
+    steps:
+    - label: ":python: Unit Tests"
+      command:
+        - make test-template
+      plugins:
+        - grapl-security/vault-login#v0.1.2
+        - grapl-security/vault-env#v0.1.0:
+            secrets:
+              - buildkite-plugin-cookiecutter/TOOLCHAIN_AUTH_TOKEN
+      env:
+        # Adding these so the git commands run in Pytest work
+        GIT_AUTHOR_NAME: Testy McTesterson
+        GIT_AUTHOR_EMAIL: tests@example.com
+        GIT_COMMITTER_NAME: Testy McTesterson
+        GIT_COMMITTER_EMAIL: tests@example.com
