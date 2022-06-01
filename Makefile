@@ -2,14 +2,6 @@
 
 .PHONY: help
 help: ## Print this help
-	@printf -- '\n'
-	@printf -- '                                                     __ \n'
-	@printf -- '             (≡)         ____ _ _____ ____ _ ____   / / \n'
-	@printf -- '                \       / __ `// ___// __ `// __ \ / /  \n'
-	@printf -- '                (≡)    / /_/ // /   / /_/ // /_/ // /   \n'
-	@printf -- '                /      \__, //_/    \__,_// .___//_/    \n'
-	@printf -- '             (≡)      /____/             /_/            \n'
-	@printf -- '\n'
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make ${FMT_BLUE}<target>${FMT_END}\n"} \
 		 /^[a-zA-Z0-9_-]+:.*?##/ { printf "  ${FMT_BLUE}%-46s${FMT_END} %s\n", $$1, $$2 } \
 		 /^##@/ { printf "\n${FMT_BOLD}%s${FMT_END}\n", substr($$0, 5) } ' \
