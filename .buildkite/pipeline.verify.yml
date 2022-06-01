@@ -9,7 +9,7 @@ steps:
     # various configuration files are in proper working order.
     key: validation
     steps:
-    - label: ":jeans: All files are covered by Pants"
+    - label: ":pants: All files are covered by Pants"
       command:
         - ./pants tailor --check
 
@@ -18,7 +18,7 @@ steps:
     # enforcement, typechecking, etc.
     key: lints
     steps:
-    - label: ":lint-roller::jeans: Lint BUILD files"
+    - label: ":lint-roller::pants: Lint BUILD files"
       command:
         - make lint-build-files
       plugins:
