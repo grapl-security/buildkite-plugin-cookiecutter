@@ -1,4 +1,4 @@
-DOCKER_COMPOSE_CHECK := docker-compose run --rm
+DOCKER_COMPOSE_CHECK := docker compose run --rm
 PANTS_SHELL_FILTER := ./pants filter --target-type=shell_sources,shunit2_tests :: | xargs ./pants
 
 .DEFAULT_GOAL=all

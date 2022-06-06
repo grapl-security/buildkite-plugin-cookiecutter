@@ -19,7 +19,7 @@ TODO
 
 ## Building and Contributing
 
-Requires `make`, `docker`, and `docker-compose`.
+Requires `make`, `docker`, and Docker Compose v2.
 
 `make all` will run all formatting, linting, and testing.
 
