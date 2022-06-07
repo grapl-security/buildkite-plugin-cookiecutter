@@ -41,6 +41,12 @@ enabled = true
 # Randomly generated, and unique to this project
 repo_id = "78b5f8fc-7758-4864-8f5d-f36f7e0c9816"
 
+[python]
+interpreter_constraints = ["==3.8.*"]
+
+[python-bootstrap]
+search_path = ["<PYENV_LOCAL>", "<PYENV>", "<PATH>"]
+
 [shfmt]
 # Indent with 4 spaces
 # Indent switch cases
