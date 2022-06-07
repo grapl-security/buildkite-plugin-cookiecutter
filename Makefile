@@ -1,4 +1,16 @@
+# Run a Pants goal across all Python files
+PANTS_PYTHON_FILTER := ./pants filter --target-type=python_sources,python_tests :: | xargs ./pants
+# Run a Pants goal across all shell files
+PANTS_SHELL_FILTER := ./pants filter --target-type=shell_sources,shunit2_tests :: | xargs ./pants
+
 .DEFAULT_GOAL=all
+
+.PHONY: all
+all: format
+all: lint
+all: typecheck
+all: test
+all: ## Run (almost!) all commands
 
 .PHONY: help
 help: ## Print this help
@@ -12,8 +24,10 @@ help: ## Print this help
 ########################################################################
 
 .PHONY: format
+format: format-build-files
+format: format-python
+format: format-shell
 format: ## Reformat all code
-format: format-build-files format-python format-shell
 
 .PHONY: format-build-files
 format-build-files: ## Reformat all Pants BUILD files
@@ -21,18 +35,20 @@ format-build-files: ## Reformat all Pants BUILD files
 
 .PHONY: format-python
 format-python: ## Reformat all python code
-	./pants filter --target-type=python_sources,python_tests :: | xargs ./pants fmt
+	$(PANTS_PYTHON_FILTER) fmt
 
 .PHONY: format-shell
 format-shell: ## Reformat all shell code
-	./pants filter --target-type=shell_sources,shunit2_tests :: | xargs ./pants fmt
+	$(PANTS_SHELL_FILTER) fmt
 
 ##@ Linting
 ########################################################################
 
 .PHONY: lint
+lint: lint-build-files
+lint: lint-python
+lint: lint-shell
 lint: ## Lint all code
-lint: lint-build-files lint-python lint-shell
 
 .PHONY: lint-build-files
 lint-build-files: ## Lint Pants BUILD files
@@ -40,11 +56,11 @@ lint-build-files: ## Lint Pants BUILD files
 
 .PHONY: lint-python
 lint-python: ## Lint python code
-	./pants filter --target-type=python_sources,python_tests :: | xargs ./pants lint
+	$(PANTS_PYTHON_FILTER) lint
 
 .PHONY: lint-shell
 lint-shell: ## Lint shell code
-	./pants filter --target-type=shell_sources,shunit2_tests :: | xargs ./pants lint
+	$(PANTS_SHELL_FILTER) lint
 
 ##@ Typecheck
 ########################################################################
@@ -56,8 +72,8 @@ typecheck: ## Typecheck Python Code
 ##@ Testing
 ########################################################################
 .PHONY: test
-test: ## Run all tests
 test: test-template
+test: ## Run all tests
 
 .PHONY: test-template
 test-template: ## Test templates
@@ -65,5 +81,3 @@ test-template: ## Test templates
 
 ########################################################################
 
-.PHONY: all
-all: format lint typecheck test
