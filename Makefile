@@ -79,5 +79,9 @@ test: ## Run all tests
 test-template: ## Test templates
 	./pants test ::
 
+##@ Utility
 ########################################################################
 
+.PHONY: lockfiles
+lockfiles: ## Update all lockfiles
+	./pants generate-lockfiles
