@@ -1,8 +1,2 @@
-# If not for the lack of a PyPI release of cookiecutter, we could just
-# rely on pytest-cookies in the extra_requirements stanza for Pytest
-# configuration in Pants.
-
-cookiecutter @ git+https://github.com/cookiecutter/cookiecutter.git@2.0.2
-pytest-cookies
-
+cookiecutter>=2
 toml

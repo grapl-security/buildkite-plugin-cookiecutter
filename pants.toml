@@ -41,6 +41,14 @@ enabled = true
 # Randomly generated, and unique to this project
 repo_id = "78b5f8fc-7758-4864-8f5d-f36f7e0c9816"
 
+[python]
+lockfile_generator = "pex"
+interpreter_constraints = ["==3.8.*"]
+enable_resolves = true
+
+[python-bootstrap]
+search_path = ["<PYENV_LOCAL>", "<PYENV>", "<PATH>"]
+
 [shfmt]
 # Indent with 4 spaces
 # Indent switch cases
@@ -57,7 +65,12 @@ output = "all"
 extra_env_vars = [ "HOME", "GIT_AUTHOR_NAME", "GIT_AUTHOR_EMAIL", "GIT_COMMITTER_NAME", "GIT_COMMITTER_EMAIL" ]
 
 [pytest]
+lockfile="3rdparty/python/pytest.lockfile"
 args = [ "-vv" ]
+extra_requirements = [
+  "pytest-cookies"
+]
+
 
 [mypy]
 config = "mypy.ini"
