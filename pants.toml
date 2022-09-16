@@ -10,6 +10,10 @@ backend_packages = [
     "pants.backend.shell.lint.shellcheck",
     "pants.backend.shell.lint.shfmt",
 ]
+
+use_deprecated_directory_cli_args_semantics = false
+use_deprecated_pex_binary_run_semantics = false
+
 build_ignore = [
     # Don't want the BUILD files in the template to get treated as
     # though they applied to this project.
