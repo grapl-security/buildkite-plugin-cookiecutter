@@ -1,5 +1,5 @@
 DOCKER_COMPOSE_CHECK := docker compose run --rm
-PANTS_SHELL_FILTER := ./pants filter --target-type=shell_sources,shunit2_tests :: | xargs ./pants
+PANTS_SHELL_FILTER := ./pants --filter-target-type=shell_source,shunit2_test
 
 .DEFAULT_GOAL=all
 
@@ -27,11 +27,11 @@ format: ## Automatically format all code
 
 .PHONY: format-build-files
 format-build-files: ## Format Pants BUILD files
-	./pants update-build-files
+	./pants update-build-files ::
 
 .PHONY: format-shell
 format-shell: ## Format shell scripts
-	$(PANTS_SHELL_FILTER) fmt
+	$(PANTS_SHELL_FILTER) fmt ::
 
 ##@ Linting
 ########################################################################
@@ -45,11 +45,11 @@ lint: ## Perform lint checks on all files
 
 .PHONY: lint-build-files
 lint-build-files: ## Lint Pants BUILD files
-	./pants update-build-files --check
+	./pants update-build-files --check ::
 
 .PHONY: lint-docker
 lint-docker:  ## Lint Dockerfiles
-	./pants filter --target-type=docker_image :: | xargs ./pants lint
+	./pants --filter-target-type=docker_image lint ::
 
 .PHONY: lint-plugin
 lint-plugin: ## Lint the Buildkite plugin metadata
@@ -57,7 +57,7 @@ lint-plugin: ## Lint the Buildkite plugin metadata
 
 .PHONY: lint-shell
 lint-shell: ## Lint the shell scripts
-	$(PANTS_SHELL_FILTER) lint
+	$(PANTS_SHELL_FILTER) lint ::
 
 ##@ Testing
 ########################################################################
@@ -73,4 +73,4 @@ test-plugin: ## Test the Buildkite plugin locally (does *not* run a Buildkite pi
 
 .PHONY: test-shell
 test-shell: ## Test shell scripts and libraries
-	$(PANTS_SHELL_FILTER) test
+	$(PANTS_SHELL_FILTER) test ::

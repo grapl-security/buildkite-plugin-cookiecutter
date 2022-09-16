@@ -1,7 +1,7 @@
 # Run a Pants goal across all Python files
-PANTS_PYTHON_FILTER := ./pants filter --target-type=python_sources,python_tests :: | xargs ./pants
+PANTS_PYTHON_FILTER := ./pants --filter-target-type=python_source,python_test
 # Run a Pants goal across all shell files
-PANTS_SHELL_FILTER := ./pants filter --target-type=shell_sources,shunit2_tests :: | xargs ./pants
+PANTS_SHELL_FILTER := ./pants --filter-target-type=shell_source,shunit2_test
 
 .DEFAULT_GOAL=all
 
@@ -31,15 +31,15 @@ format: ## Reformat all code
 
 .PHONY: format-build-files
 format-build-files: ## Reformat all Pants BUILD files
-	./pants update-build-files
+	./pants update-build-files ::
 
 .PHONY: format-python
 format-python: ## Reformat all python code
-	$(PANTS_PYTHON_FILTER) fmt
+	$(PANTS_PYTHON_FILTER) fmt ::
 
 .PHONY: format-shell
 format-shell: ## Reformat all shell code
-	$(PANTS_SHELL_FILTER) fmt
+	$(PANTS_SHELL_FILTER) fmt ::
 
 ##@ Linting
 ########################################################################
@@ -52,15 +52,15 @@ lint: ## Lint all code
 
 .PHONY: lint-build-files
 lint-build-files: ## Lint Pants BUILD files
-	./pants update-build-files --check
+	./pants update-build-files --check ::
 
 .PHONY: lint-python
 lint-python: ## Lint python code
-	$(PANTS_PYTHON_FILTER) lint
+	$(PANTS_PYTHON_FILTER) lint ::
 
 .PHONY: lint-shell
 lint-shell: ## Lint shell code
-	$(PANTS_SHELL_FILTER) lint
+	$(PANTS_SHELL_FILTER) lint ::
 
 ##@ Typecheck
 ########################################################################
