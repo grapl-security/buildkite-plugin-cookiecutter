@@ -66,8 +66,8 @@ def test_bake_project(cookies) -> None:  # type: ignore[no-untyped-def]
 
     # Contents of the pants.toml file should be as we expect
     pants_toml = toml_contents(path.join(result.project_path, "pants.toml"))
-    assert pants_toml["GLOBAL"]["pants_version"] == "2.10.0"
-    assert pants_toml["GLOBAL"]["plugins"] == ["toolchain.pants.plugin==0.17.0"]
+    assert pants_toml["GLOBAL"]["pants_version"] == "2.13.0"
+    assert pants_toml["GLOBAL"]["plugins"] == ["toolchain.pants.plugin==0.22.0"]
     assert pants_toml["toolchain-setup"]["org"] == "grapl-security"
     assert pants_toml["toolchain-setup"]["repo"] == "test-thing-buildkite-plugin"
 

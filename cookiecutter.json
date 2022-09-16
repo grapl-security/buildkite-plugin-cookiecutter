@@ -5,8 +5,8 @@
     "description": "A Buildkite Plugin for {{ cookiecutter.friendly_name }}",
     "author": "https://github.com/{{ cookiecutter.github_org }}",
 
-    "pants_version": "2.10.0",
-    "toolchain_pants_plugin_version": "0.17.0",
+    "pants_version": "2.13.0",
+    "toolchain_pants_plugin_version": "0.22.0",
 
     "use_environment_hook": true,
     "use_pre_checkout_hook": true,
